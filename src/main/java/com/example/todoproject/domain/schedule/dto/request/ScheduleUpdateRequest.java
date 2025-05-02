@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateScheduleRequest {
+public class ScheduleUpdateRequest {
 	private String title;
 	private String content;
+	private Long writerId;
 }

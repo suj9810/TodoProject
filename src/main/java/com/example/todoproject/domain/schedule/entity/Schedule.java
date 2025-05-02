@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.todoproject.common.audit.BaseEntity;
 import com.example.todoproject.domain.comment.entity.Comment;
+import com.example.todoproject.domain.schedule.dto.request.ScheduleUpdateRequest;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,10 +34,15 @@ public class Schedule extends BaseEntity {
 	private String title;
 	@Column(nullable = false)
 	private String content;
+	// @Column(nullable = false)
+	// private Long writerId;
 
 	@OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments = new ArrayList<>();
 
-
+	public void updateSchedule(ScheduleUpdateRequest request) {
+		this.title = request.getTitle();
+		this.content = request.getContent();
+	}
 
 }

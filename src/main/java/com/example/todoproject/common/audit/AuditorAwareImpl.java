@@ -1,14 +1,21 @@
-package com.example.todoproject.common.audit;
-
-import java.util.Optional;
-
-import org.springframework.data.domain.AuditorAware;
-
-public class AuditorAwareImpl implements AuditorAware<String> {
-
-	@Override
-	public Optional<String> getCurrentAuditor() {
-		// 실제 프로젝트에서는 로그인 사용자 ID 반환
-		return Optional.of("anonymousUser"); // 임시 사용자 ID
-	}
-}
+// package com.example.todoproject.common.audit;
+//
+// import java.util.Optional;
+//
+// import org.springframework.data.domain.AuditorAware;
+// import org.springframework.security.core.context.SecurityContext;
+// import org.springframework.security.core.context.SecurityContextHolder;
+//
+// public class AuditorAwareImpl implements AuditorAware<Long> {
+//
+// 	@Override
+// 	public Optional<Long> getCurrentAuditor() {
+//
+// 		SecurityContext securityContext = SecurityContextHolder.getContext();
+// 		if (securityContext.getAuthentication() != null && securityContext.getAuthentication().getPrincipal() instanceof Long) {
+// 			Long userId = (Long) securityContext.getAuthentication().getPrincipal();
+// 			return Optional.of(userId);
+// 		}
+// 		return Optional.of(-1L);
+// 	}
+// }

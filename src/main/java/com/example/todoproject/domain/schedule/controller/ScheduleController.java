@@ -7,12 +7,15 @@ import org.springframework.http.ResponseEntity;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.todoproject.domain.schedule.dto.request.CreateScheduleRequest;
+import com.example.todoproject.domain.schedule.dto.request.ScheduleCreateRequest;
+import com.example.todoproject.domain.schedule.dto.request.ScheduleUpdateRequest;
 import com.example.todoproject.domain.schedule.dto.response.ScheduleResponse;
 import com.example.todoproject.domain.schedule.service.ScheduleService;
 
@@ -34,7 +37,7 @@ public class ScheduleController {
 	 * @return the response entity
 	 */
 	@PostMapping
-	public ResponseEntity<ScheduleResponse> createSchedule(@Valid @RequestBody CreateScheduleRequest request) {
+	public ResponseEntity<ScheduleResponse> createSchedule(@RequestBody ScheduleCreateRequest request) {
 		ScheduleResponse boardResponse = scheduleService.saveBaord(request);
 		return ResponseEntity.status(HttpStatus.CREATED).body(boardResponse);
 	}
@@ -48,6 +51,27 @@ public class ScheduleController {
 	public ResponseEntity<List<ScheduleResponse>> getSchedule() {
 		List<ScheduleResponse> scheduleResponses = scheduleService.findAll();
 		return ResponseEntity.status(HttpStatus.OK).body(scheduleResponses);
+	}
+
+	/**A
+	 * 스케줄 단건 조회
+	 *
+	 * @param id the id
+	 * @return the schedule by id
+	 */
+	@GetMapping("/{id}")
+	public ResponseEntity<ScheduleResponse> getScheduleById(@Valid @PathVariable Long id) {
+		ScheduleResponse scheduleResponse = scheduleService.findById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(scheduleResponse);
+	}
+
+
+	@PutMapping("/{id}")
+	public ResponseEntity<ScheduleResponse> updateScheduleById(
+		@Valid @PathVariable Long id,
+		@RequestBody ScheduleUpdateRequest request) {
+		ScheduleResponse scheduleResponse = scheduleService.updateSchedule(id,request);
+		return ResponseEntity.status(HttpStatus.OK).body(scheduleResponse);
 	}
 
 }
