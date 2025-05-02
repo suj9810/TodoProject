@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,7 +66,13 @@ public class ScheduleController {
 		return ResponseEntity.status(HttpStatus.OK).body(scheduleResponse);
 	}
 
-
+	/**
+	 * 스케줄 수정
+	 *
+	 * @param id the id 
+	 * @param request the request 
+	 * @return the response entity
+	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<ScheduleResponse> updateScheduleById(
 		@Valid @PathVariable Long id,
@@ -74,4 +81,11 @@ public class ScheduleController {
 		return ResponseEntity.status(HttpStatus.OK).body(scheduleResponse);
 	}
 
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteScheduleById(
+		@PathVariable Long id
+	) {
+		scheduleService.deleteSchedule(id);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+	}
 }

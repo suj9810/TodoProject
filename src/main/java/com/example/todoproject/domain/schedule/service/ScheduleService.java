@@ -50,6 +50,12 @@ public class ScheduleService {
 		return ScheduleResponse.of(schedule);
 	}
 
+	@Transactional
+	public void deleteSchedule(Long boardId) {
+		Schedule schedule = getScheduleOrThrow(boardId);
+		scheduleRepository.delete(schedule);
+	}
+
 	private Schedule getScheduleOrThrow(Long scheduleId) {
 		return scheduleRepository.findById(scheduleId)
 			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "게시글이 존재하지 않습니다. ID : " + scheduleId));
