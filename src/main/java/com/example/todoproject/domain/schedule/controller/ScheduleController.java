@@ -39,7 +39,7 @@ public class ScheduleController {
 	 */
 	@PostMapping
 	public ResponseEntity<ScheduleResponse> createSchedule(@RequestBody ScheduleCreateRequest request) {
-		ScheduleResponse boardResponse = scheduleService.saveBaord(request);
+		ScheduleResponse boardResponse = scheduleService.createSchedule(request);
 		return ResponseEntity.status(HttpStatus.CREATED).body(boardResponse);
 	}
 
@@ -81,8 +81,14 @@ public class ScheduleController {
 		return ResponseEntity.status(HttpStatus.OK).body(scheduleResponse);
 	}
 
+	/**
+	 * 스케줄 삭제
+	 *
+	 * @param id the id
+	 * @return the response entity
+	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteScheduleById(
+	public ResponseEntity<Void> deleteSchedule(
 		@PathVariable Long id
 	) {
 		scheduleService.deleteSchedule(id);

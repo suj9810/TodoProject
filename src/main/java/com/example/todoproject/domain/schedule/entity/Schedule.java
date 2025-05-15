@@ -10,6 +10,7 @@ import com.example.todoproject.domain.schedule.dto.request.ScheduleUpdateRequest
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "schedules")
@@ -34,10 +36,9 @@ public class Schedule extends BaseEntity {
 	private String title;
 	@Column(nullable = false)
 	private String content;
-	// @Column(nullable = false)
-	// private Long writerId;
 
-	@OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@ToString.Exclude
 	private List<Comment> comments = new ArrayList<>();
 
 	public void updateSchedule(ScheduleUpdateRequest request) {
